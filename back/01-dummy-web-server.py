@@ -22,6 +22,8 @@ class MyServer(BaseHTTPRequestHandler):
 		self.send_response(200)
 		self._set_headers()
 		self.wfile.write(bytes("You accessed path: %s" % self.path, "utf-8"))
+		print("The client accessed path:")
+		print(self.path)
 
 myServer = HTTPServer((hostName, hostPort), MyServer)
 print(time.asctime(), "Server Starts - %s:%s" % (hostName, hostPort))
