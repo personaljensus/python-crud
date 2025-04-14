@@ -5,7 +5,7 @@ Ouvrir une invite de commandes et aller dans un dossier ou vous avez du code htm
 ```cmd
 python3 -m http.server
 ```
--> Python va créer un serveur web qui tournera à l'adresse localhost:8000
+-> Python va créer un serveur web qui tournera à l'adresse http://localhost:8000
 
 
 ## Exemple 2
