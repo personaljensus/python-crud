@@ -1,0 +1,80 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>02 JSON GET POST</title>
+  <style>
+    .data-get {
+      background-color: gainsboro;
+      min-height: 200px;
+      font-family: 'Courier New', Courier, monospace;
+    }
+  </style>
+</head>
+
+<body>
+  <p>
+    Cette page envoie des requêtes GET et POST à l'aide de <code>fetch</code>.
+  </p>
+  <p>
+    Mon serveur tourne actuellement sur:
+    <input id="server-url" type="text" value="http://localhost:8000">
+  </p>
+  <h2>GET du JSON depuis un serveur</h2>
+  <div class="data-get">
+    <pre id="data-get"></pre>
+  </div>
+  <button type="button" id="getData">GET data</button>
+  <h2>POST du JSON vers un serveur</h2>
+  <textarea name="jsonData" id="jsonData" cols="50" rows="20">
+{
+  "nom": "Samuel Vimaire",
+  "rôle": "Capitaine du guet municipal"
+}
+  </textarea><br>
+  <button type="button" id="postButton">POST data</button>
+  <script>
+    // GET data with jQuery
+    let url = document.getElementById('server-url').value;
+
+    function updateUrl(inputElement) {
+      url = inputElement.target.value;
+      console.log(`L'url a été changée en ${url}`)
+    }
+
+    // On utilise le mot clé async car cette fonction est blocante,
+    // elle attend les réponses du backend
+    async function getData() {
+      console.log('Cette page tente de joindre:', url);
+      const reponse = await fetch(url);
+      const dataFromServer = await reponse.json();
+      console.log('Le serveur a répondu:', dataFromServer);
+      document.getElementById('data-get').innerText = JSON.stringify(dataFromServer, undefined, 2)
+    }
+
+    async function postData() {
+      // on doit d'abord contruire un JSON valide
+      const rawData = document.getElementById('jsonData').value;
+
+      console.log('On va tenter d\'envoyer ça au serveur:', rawData);
+      const response = await fetch(url, {
+        method: 'POST',
+        mode: 'cors',
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: rawData
+      });
+
+      const dataFromServer = await response.json();
+      document.getElementById('data-get').innerText = JSON.stringify(dataFromServer, undefined, 2)
+    }
+
+    document.getElementById('postButton').addEventListener('click', postData);
+    document.getElementById('getData').addEventListener('click', getData);
+    document.getElementById('server-url').addEventListener('click', updateUrl);
+  </script>
+</body>
+
+</html>
