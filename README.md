@@ -1,13 +1,9 @@
 ## Exemple 1
 
-Ouvrir une invite de commandes:
+Ouvrir une invite de commandes et aller dans un dossier ou vous avez du code html / javascript (p.ex exemples HTML/JS)
 
 ```cmd
-```
-
-Aller dans un dossier ou vous avez du code html / javascript (p.ex exemples HTML/JS)
-
-```python3 -m http.server
+python3 -m http.server
 ```
 -> Python va créer un serveur web qui tournera à l'adresse localhost:8000
 
